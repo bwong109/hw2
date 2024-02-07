@@ -15,16 +15,31 @@ std::string convToLower(std::string src)
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
+    // Convert string to lowercase, create set to store words
+    rawWords = convToLower(rawWords);
+    std::set<std::string> wordSet;
 
+    // Iterate through rawWords and replace punctuation with spaces
+    for (int i = 0; i < rawWords.size(); ++i) {
+        if (ispunct(rawWords[i])) {
+            rawWords[i] = ' ';
+        }
+    }
 
+    // Use stringstream to break up words
+    std::stringstream ss(rawWords);
+    std::string word;
 
+    // Parse through string into individual characters, and insert
+    while (ss >> word){
 
-
-
-
-
-
-
+        // Insert word if at least 2 character words
+        if (word.size() >= 2){
+            wordSet.insert(word);
+        }
+    }
+    
+    return wordSet;
 }
 
 /**************************************************
@@ -42,7 +57,7 @@ std::string &ltrim(std::string &s) {
 }
 
 // trim from end
-std::string &rtrim(std::string &s) {
+std::string &rtrim(std::string &s) {    
     s.erase(
 	    std::find_if(s.rbegin(), 
 			 s.rend(), 
