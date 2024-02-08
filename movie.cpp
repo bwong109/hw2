@@ -3,7 +3,8 @@
 #include "movie.h"
 #include "util.h"
 
-Movie::Movie(std::string name, double price, int quantity, std::string genre, std::string rating){
+Movie::Movie(std::string category, std::string name, double price, int quantity, std::string genre, std::string rating)
+    : Product(category, name, price, quantity){
     genre_ = genre;
     rating_ = rating;
 }

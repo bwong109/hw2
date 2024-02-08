@@ -4,7 +4,7 @@
 
 class Clothing : public Product{
     public:
-        Clothing(std::string name, double price, int quantity, std::string size, std::string brand);
+        Clothing(std::string category, std::string name, double price, int quantity, std::string size, std::string brand);
         std::set<std::string> keywords();
         std::string displayString();
         void dump(std::ostream& os);

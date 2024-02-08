@@ -3,7 +3,8 @@
 #include "book.h"
 #include "util.h"
 
-Book::Book(std::string name, double price, int quantity, std::string isbn, std::string author){
+Book::Book(std:: string category, std::string name, double price, int quantity, std::string isbn, std::string author) 
+    : Product(category, name, price, quantity){
     isbn_ = isbn;
     author_ = author;
 }

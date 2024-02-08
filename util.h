@@ -19,7 +19,7 @@ std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
     // If element also in s2, then add it 
     for (it = s1.begin(); it != s1.end(); it++){
         if (s2.find(*it) != s2.end()){
-            intersectResult.insert(*it)
+            intersectResult.insert(*it);
         }
     }
 

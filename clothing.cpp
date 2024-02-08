@@ -3,7 +3,8 @@
 #include "clothing.h"
 #include "util.h"
 
-Clothing::Clothing(std::string name, double price, int quantity, std::string size, std::string brand){
+Clothing::Clothing(std::string category, std::string name, double price, int quantity, std::string size, std::string brand)
+        : Product(category, name, price, quantity){
     size_ = size;
     brand_ = brand;
 }
