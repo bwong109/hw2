@@ -13,12 +13,13 @@ std::set<std::string> Book::keywords() const{
     std::set<std::string> authors = parseStringToWords(convToLower(author_));
     std::set<std::string> names = parseStringToWords(convToLower(name_));
     std::set<std::string> keywords = setUnion(names, authors);
+    keywords.insert(isbn_);
     return keywords;
 }
 
 std::string Book::displayString() const{
     std::stringstream display;
-    display << name_ << "\n" << "ISBN: " << isbn_ << " Author: " << author_ << "\n";
+    display << name_ << "\n" << " Author: " << author_ << " ISBN: " << isbn_ << "\n";
     display << price_ << " " << qty_ << " left.\n";
     return display.str();
 }

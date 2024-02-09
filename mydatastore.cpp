@@ -149,44 +149,45 @@ void MyDataStore::viewCart(std::string username){
 
 void MyDataStore::buyCart(std::string username){
 
-    // Checks if username is valid
-    if (!invalidUser(username)){
-        std::cout << "Invalid request" << std::endl;
-        return;
-    }
+    // Find user in the usersMap
+    map<string, User*>::iterator user = usersMap.find(username);
 
-    // Check if cart is not empty
-    std::map<std::string, std::vector<Product*>>::iterator cartIt = cartsMap.find(username);
-    if (cartIt == cartsMap.end()) {
-        std::cout << "User's cart is empty" << std::endl;
-        return;
-    }
+    // Find user's cart in the cartsMap
+    map<string, vector<Product*>>::iterator cartIt = cartsMap.find(username);
 
-    // Retreive user and cart to iterate through
-    std::vector<Product*>& cart = cartIt->second;
-    User* user = usersMap[username];
-    std::vector<Product*>::iterator it;
+    // If user and cart exist
+    if (user != usersMap.end() && cartIt != cartsMap.end()) {
+        
+        // Retrieve user and cart
+        User* currentUser = user->second;
+        vector<Product*>& cart = cartIt->second;
 
-    // Iterate through items in cart
-    for (it = cart.begin(); it != cart.end(); ++it){
-        Product* product = *it;
+        // Create a new cart for products
+        vector<Product*> newCart;
 
-        // Check if the product is in stock and the user has enough money
-        if (product->getQty() > 0 && user->getBalance() >= product->getPrice()) {
-            
-            // Remove product from the cart, reduce in-stock quantity by 1
-            it = cart.erase(it);
-            product->subtractQty(1);
+        // Iterate through the products in the current cart
+        for (vector<Product*>::iterator itProd = cart.begin(); itProd != cart.end(); ++itProd) {
+          
+            Product* product = *itProd;
 
-            // Debit the product price from the user's available credit
-            user->deductAmount(product->getPrice());
+            // Check if product in stock and user has enough balance
+            if (product->getQty() > 0 && currentUser->getBalance() >= product->getPrice()) {
 
+                // Deduct product's price from the user's balance and update quantity
+                currentUser->deductAmount(product->getPrice());
+                product->subtractQty(1);
+            } 
+
+            // Add product to new cart if it couldn't be bought
+            else {
+                newCart.push_back(product);
+            }
         }
-        // If not, then next item
-        else {
-            ++it;
-        }
+
+        // Update user's cart with new cart
+        cartsMap[username] = newCart;
     }
+
 
 
 }

@@ -125,7 +125,7 @@ std::string ProductBookParser::categoryID()
 
 
 /**
- * Your job to fill in the code to create a new book product
+ * Yur job to fill in the code to create a new book product
  * using the data members in this class and the parent ProductParser class
  */
 Product* ProductBookParser::makeProduct()

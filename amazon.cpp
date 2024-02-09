@@ -100,50 +100,46 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
-            else {
-                string username;
-                ss >> username;
+            else{
+              string userName;
+              ss >> userName;
 
-                // Check if username is invalid
-                if (ds.invalidUser(username)){
-                    cout << "Invalid Username" << endl;
+              // Track if the username is valid
+              bool validUser = ds.invalidUser(userName);
+
+              // Check if cmd is ADD
+              if (cmd == "ADD"){
+
+                size_t hitNum;
+                ss >> hitNum;
+
+                // Check if hit number and valid user
+                if (hitNum <= 0 || hitNum > hits.size() || !validUser){
+                    cout << "Invalid Request" << endl;
                 }
-
-                // Proceed if username is valid
                 else{
-
-                    // Check if command is ADD
-                    if (cmd == "ADD"){
-
-                        int hitNum; 
-                        ss >> hitNum;
-
-                        // Validate hitnum and username again
-                        if (hitNum <= 0 || hitNum > hits.size() || ds.invalidUser(username)){
-                            cout << "Invalid Request" << endl;
-                        }
-
-                        // If valid, then add to cart
-                        else {
-                            ds.addToCart(username, hits[hitNum - 1]); 
-                        } 
-                    }
-
-                    // Check if command is VIEWCART
-                    else if (cmd == "VIEWCART"){
-                        ds.viewCart(username);
-                    }
-
-                    // Check if command is BUYCART
-                    else if (cmd == "BUYCART"){
-                        ds.buyCart(username);
-                    }
-
-                    // Unknown otherwise
-                    else{
-                        cout << "Unknown command" << endl;
-                    }
+                    ds.addToCart(userName, hits[hitNum - 1]);
                 }
+
+              }
+
+              // Check if the user is invalid
+              if (!validUser){
+                  cout << "Invalid Username" << endl;
+              } 
+
+              else {
+
+                // If the command is "VIEWCART"
+                if (cmd == "VIEWCART"){
+                    ds.viewCart(userName);
+                }
+
+                // If the command is "BUYCART"
+                else if (cmd == "BUYCART"){
+                    ds.buyCart(userName);
+                }
+              }
             }
         }
 

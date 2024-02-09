@@ -21,7 +21,7 @@ std::set<std::string> parseStringToWords(string rawWords)
 
     // Iterate through rawWords and replace punctuation with spaces
     for (size_t i = 0; i < rawWords.size(); ++i) {
-        if (ispunct(rawWords[i])) {
+        if (ispunct(rawWords[i]) && rawWords[i]!='-') {
             rawWords[i] = ' ';
         }
     }
