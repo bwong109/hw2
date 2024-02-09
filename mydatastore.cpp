@@ -202,7 +202,7 @@ MyDataStore::~MyDataStore(){
     }
 
     // Clean products memory
-    for (size_t i = 0; i < productsVector.size(); ++it){
+    for (size_t i = 0; i < productsVector.size(); ++i){
         delete productsVector[i];
     }
 
