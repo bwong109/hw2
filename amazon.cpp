@@ -100,13 +100,50 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
-	    /* Add support for other commands here */
-
-
-
-
             else {
-                cout << "Unknown command" << endl;
+                string username;
+                ss >> username;
+
+                // Check if username is invalid
+                if (ds.invalidUser(username)){
+                    cout << "Invalid Username" << endl;
+                }
+
+                // Proceed if username is valid
+                else{
+
+                    // Check if command is ADD
+                    if (cmd == "ADD"){
+
+                        int hitNum; 
+                        ss >> hitNum;
+
+                        // Validate hitnum and username again
+                        if (hitNum <= 0 || hitNum > hits.size() || ds.invalidUser(username)){
+                            cout << "Invalid Request" << endl;
+                        }
+
+                        // If valid, then add to cart
+                        else {
+                            ds.addToCart(username, hits[hitNum - 1]); 
+                        } 
+                    }
+
+                    // Check if command is VIEWCART
+                    else if (cmd == "VIEWCART"){
+                        ds.viewCart(username);
+                    }
+
+                    // Check if command is BUYCART
+                    else if (cmd == "BUYCART"){
+                        ds.buyCart(username);
+                    }
+
+                    // Unknown otherwise
+                    else{
+                        cout << "Unknown command" << endl;
+                    }
+                }
             }
         }
 
